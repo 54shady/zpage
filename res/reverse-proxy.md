@@ -1,8 +1,10 @@
 # Using caddy as reverse proxy for webserver(nginx)
 
+## Basic setup
+
 ![reverse proxy](../pix/rproxy.png)
 
-当前宿主机ip地址(10.0.0.5)
+假设当前宿主机ip地址(10.0.0.5)
 
 首先启动web服务器(将主机的8080映射到nginx的80)
 
@@ -31,3 +33,21 @@ caddy将对主机的8080进行反向代理(Caddyfile内容如下,local web serve
 	www.myweb.com {
 			reverse_proxy /* localhost:8080
 	}
+
+## Certificate Authority(CA)
+
+生成对应的CA证书和key(localhost+1.pem和localhost+1-key.pem)
+
+	mkdir certs && cd certs
+	mkcert localhost 10.0.0.5
+
+修改Caddyfile配置对应的证书文件
+
+	localhost, 10.0.0.5 {
+			reverse_proxy /* localhost:8080
+			tls /certs/localhost+1.pem  /certs/localhost+1-key.pem
+	}
+
+启动容器时配置证书
+
+	docker run --name rproxy --rm -d --network host -v $PWD/certs:/certs -v $PWD/Caddyfile:/etc/caddy/Caddyfile caddy
