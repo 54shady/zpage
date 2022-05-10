@@ -36,18 +36,24 @@ caddy将对主机的8080进行反向代理(Caddyfile内容如下,local web serve
 
 ## Certificate Authority(CA)
 
-生成对应的CA证书和key(localhost+1.pem和localhost+1-key.pem)
+生成对应的ca.pem证书和ca-key.pem
 
-	mkdir certs && cd certs
-	mkcert localhost 10.0.0.5
+	mkcert -cert-file ca.pem -key-file ca-key.pem localhost 10.0.0.5 zeroway.cool
 
 修改Caddyfile配置对应的证书文件
 
-	localhost, 10.0.0.5 {
+	zeroway.cool, localhost, 10.0.0.5 {
 			reverse_proxy /* localhost:8080
-			tls /certs/localhost+1.pem  /certs/localhost+1-key.pem
+			tls /certs/ca.pem  /certs/ca-key.pem
 	}
 
 启动容器时配置证书
 
-	docker run --name rproxy --rm -d --network host -v $PWD/certs:/certs -v $PWD/Caddyfile:/etc/caddy/Caddyfile caddy
+	docker run \
+		--name rproxy \
+		--rm -d \
+		--network host \
+		-v $PWD/ca.pem:/certs/ca.pem \
+		-v $PWD/ca-key.pem:/certs/ca-key.pem \
+		-v $PWD/Caddyfile:/etc/caddy/Caddyfile \
+		caddy
