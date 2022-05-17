@@ -82,3 +82,20 @@ Run the thttp again and test the cgi application
 
 	http://localhost:9999/cgi-bin/c-hello.cgi
 	http://localhost:9999/cgi-bin/py-hello.cgi
+
+## Combine CGI to button
+
+In html file, using action in form(index.html)
+
+	<h1>Hello thttpd;-)</h1>
+
+	<!--将按钮和CGI文件结合起来,使用html中form表单中的action=value来操作-->
+	<h1>Run CGI Test1</h1>
+		<form enctype="application/x-www-form-urlencoded" action="cgi-bin/py-hello.cgi" method="post">
+			<input type="submit" value="PyCGI">
+		</form>
+
+	<h1>Run CGI Test2</h1>
+		<form enctype="application/x-www-form-urlencoded" action="cgi-bin/c-hello.cgi" method="post">
+			<input type="submit" value="CCGI">
+		</form>
