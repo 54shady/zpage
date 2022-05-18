@@ -29,6 +29,8 @@ Run thttpd
 
 ## CGI Application
 
+### writing CGI application
+
 Create CGI Application via Python(py-hello.cgi)
 
 	#!/usr/bin/env python
@@ -83,7 +85,7 @@ Run the thttp again and test the cgi application
 	http://localhost:9999/cgi-bin/c-hello.cgi
 	http://localhost:9999/cgi-bin/py-hello.cgi
 
-## Combine CGI to button
+### Combine CGI to button
 
 In html file, using action in form(index.html)
 
@@ -99,3 +101,62 @@ In html file, using action in form(index.html)
 		<form enctype="application/x-www-form-urlencoded" action="cgi-bin/c-hello.cgi" method="post">
 			<input type="submit" value="CCGI">
 		</form>
+
+### CGI paramter
+
+Example: input an interger
+
+	<h1>CGI Parameter</h1>
+	<form action="cgi-bin/printval.cgi" method="post">
+		Enter the value: <input name="inputVal" type="text" size="9">
+		<input type="submit" value="Submit">
+	</form>
+
+The script(printval.cgi )
+
+	#!/usr/bin/env python
+
+	import os, sys
+	import cgi, cgitb
+
+	cgitb.enable()
+	input_data = cgi.FieldStorage()
+
+	print("Content-Type: text/html") # HTML is following
+	print("") # blank line, end of headers
+	print("<TITLE>CGI script output</TITLE>")
+	print("<H1>This is CGI Application writen by Python</H1>")
+
+	print('val:' + input_data["inputVal"].value)
+
+Example: add two number
+
+	<h1>Add two number</h1>
+	<form action="cgi-bin/add.cgi" method="post">
+		<fieldset>
+			<legend>Enter two numbers to add</legend>
+			<label>First Number: <input type="number" name="num1"></label><br/>
+			<label>Second Number: <input type="number" name="num2"></label><br/>
+		</fieldset>
+		<button>Add</button>
+	</form>
+
+The CGI script(add.cgi)
+
+	#!/usr/bin/env python3
+
+	import cgi, cgitb
+	cgitb.enable()
+
+	input_data = cgi.FieldStorage()
+
+	print('Content-Type: text/html') # HTML is following
+	print('')                         # Leave a blank line
+	print('<h1>Addition Results</h1>')
+	try:
+		num1 = int(input_data["num1"].value)
+		num2 = int(input_data["num2"].value)
+	except:
+		print('<output>Sorry, the script cannot turn your inputs into numbers (integers).</output>')
+		raise SystemExit(1)
+	print('<output>{0} + {1} = {2}</output>'.format(num1, num2, num1 + num2))
