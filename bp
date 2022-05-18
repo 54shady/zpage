@@ -31,6 +31,20 @@ newpost() {
 	$EDITOR "$webdir/blog/.drafts/$url.html" ;
 }
 
+newpostFromMD() {
+	fullname=$1
+	filename=${1#*/}
+	title=${filename%.*}
+
+	# covert markdown file to html via pandoc in docker
+	docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/latex --toc-depth=2 --toc -s $fullname --template res/template.html -c style.css -o draft.html
+	echo "$title" | grep -q "\"" && printf "Double quotation marks (\") are not allowed in entry titles.\\n" && exit
+	url="$(echo "$title" | iconv -cf UTF-8 -t ASCII//TRANSLIT | tr -d '[:punct:]' | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed "s/-\+/-/g;s/\(^-\|-\$\)//g")"
+	echo "AddDescription \"$title\" \"$url.html\"" >>  "$archivefile"|| { echo "Error: Is $archivefile writeable?"; exit; }
+	( [ -f "$webdir/blog/.drafts/$url.html" ] || [ -f "$webdir/blog/$url.html" ] ) && echo "There is already an existing draft or post of that same name/URL." && exit
+	cat draft.html >> "$webdir/blog/.drafts/$url.html" ;
+}
+
 listandReturn() {
 	printf "Listing contents of %s\\n" "$1"
 	case "$(ls "$1" | wc -l)" in
@@ -80,10 +94,11 @@ revise() {
 
 case "$1" in
 	n*) newpost ;;
+	m*) newpostFromMD $2;;
 	e*) listandReturn "$webdir"/blog/.drafts/ edit && "$EDITOR" "$webdir/blog/.drafts/$chosen" ;;
 	p*) listandReturn "$webdir"/blog/.drafts/ publish && publish ;;
 	t*) listandReturn "$webdir"/blog/.drafts/ trash && confirm trash && rm -f "$webdir/blog/.drafts/$chosen" && sed -i "/ \"$base.html\"/d" "$archivefile" ; printf "Draft deleted.\\n" ;;
 	d*) listandReturn "$webdir"/blog/ delete && confirm delete && delete && sed -i "/ \"$base.html\"/d" "$archivefile" ;;
 	r*) listandReturn "$webdir"/blog/ revise && revise ;;
-	*) printf "Usage:\\n  bp n:\\tnew draft\\n  bp e:\\tedit draft\\n  bp p:\\tpublish/finalize draft\\n  bp r:\\trevise published entry\\n  bp t:\\tdiscard draft\\n  bp d:\\tdelete published entry\\n\\nBe sure to have the following pattern added to your RSS feed, blog file and blog index:\\n\\n<!-- LB -->\\n\\nNew content will be added directly below that sequence. This is required.\\n" ;;
+	*) printf "Usage:\\n  bp n:\\tnew draft\\n  bp m demo.md:\\tnew draft from demo.md, example: ./bp m res/firstblog.md\\n  bp e:\\tedit draft\\n  bp p:\\tpublish/finalize draft\\n  bp r:\\trevise published entry\\n  bp t:\\tdiscard draft\\n  bp d:\\tdelete published entry\\n\\nBe sure to have the following pattern added to your RSS feed, blog file and blog index:\\n\\n<!-- LB -->\\n\\nNew content will be added directly below that sequence. This is required.\\n" ;;
 esac
