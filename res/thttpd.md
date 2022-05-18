@@ -129,6 +129,10 @@ The script(printval.cgi )
 
 	print('val:' + input_data["inputVal"].value)
 
+Using curl to test
+
+	curl -d inputVal=911 http://localhost:9999/cgi-bin/printval.cgi
+
 Example: add two number
 
 	<h1>Add two number</h1>
@@ -160,3 +164,7 @@ The CGI script(add.cgi)
 		print('<output>Sorry, the script cannot turn your inputs into numbers (integers).</output>')
 		raise SystemExit(1)
 	print('<output>{0} + {1} = {2}</output>'.format(num1, num2, num1 + num2))
+
+Using curl to test
+
+	curl -d "num1=1&num2=2" http://localhost:9999/cgi-bin/add.cgi
