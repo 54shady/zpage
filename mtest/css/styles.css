@@ -1,0 +1,34 @@
+BODY, TD, P, UL, OL, LI {
+  font-family:Verdana,Arial,Helvetica,sans-serif;
+  font-size:10pt;
+  }
+.w100 {width:100%}
+.hand {cursor:pointer}
+.grayborder {border-color:#808080; border-width:1px; border-style:solid}
+TD.head {background:#9999ff; font-weight:bold; font-size:12pt}
+TD.day {text-align:center; background:#E0E0E0; font-weight: bold; color:#888888}
+TD.yes {text-align:right; background:#88ff88}
+TD.no {text-align:right; background:#ffffff; color:#888888; text-decoration:line-through}
+TD.x {background:#f0f0f0}
+TD.hold {text-align:right; background:#ffC0ff}
+A:hover {color:#FF0000}
+A.nav {color:Blue;text-decoration:none}
+A.nav:Visited {color:Blue}
+A.nav:Active {color:Blue}
+A.nav:Hover {color:Red;text-decoration:underline}
+A.menu {color:Blue;text-decoration:none}
+A.menu:Visited {color:Blue}
+A.menu:Active {color:Blue}
+A.menu:Hover {color:Red;text-decoration:underline}
+IMG.middle {vertical-align:middle}
+
+A.hp {color:Blue;text-decoration:none}
+A.hp:Visited {color:Blue;}
+A.hp:Active {color:Blue;}
+A.hp:Hover {color:Red;}
+#input{font-family:Courier New,Courier,monospace;font-size:14pt}
+#fixed{font-family:Courier New,Courier,monospace}
+
+@media print {
+ .noprint { display:none; }
+  }
