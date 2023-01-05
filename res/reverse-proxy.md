@@ -36,6 +36,8 @@ caddy将对主机的8080进行反向代理(Caddyfile内容如下,local web serve
 
 ## Certificate Authority(CA)
 
+[参考文章:使用caddy配置本地https](https://medium.com/@devahmedshendy/traditional-setup-run-local-development-over-https-using-caddy-964884e75232)
+
 生成对应的ca.pem证书和ca-key.pem
 
 	mkcert -cert-file ca.pem -key-file ca-key.pem localhost 10.0.0.5 zeroway.cool
