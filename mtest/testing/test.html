@@ -1,43 +1,58 @@
 <html>
-<head>
-<title>HTML/JavaScript mouse input performance tests</title>
-<link rel=stylesheet type="text/css" href="../css/styles.css">
-</head>
+	<head>
+		<title>HTML/JavaScript mouse input performance tests</title>
+		<link rel=stylesheet type="text/css" href="../css/styles.css">
+	</head>
 
-<body background="../images/background.jpg" text="#000000" link="#0000FF" alink="#FF0000" vlink="#663366">
+	<body background="../images/background.jpg" text="#000000" link="#0000FF" alink="#FF0000" vlink="#663366">
+		<font size="+2">HTML/JavaScript mouse input performance tests</font>
+		<!--Barter rabbet: 空标签,换行标签--->
+		<br><br>
 
-<font size="+2">HTML/JavaScript mouse input performance tests</font>
-<br><br>
+		Instructions: Move the mouse around in the box below in a consistent motion. The difference
+		between hardware cursor (mouse pointer) and last recorded mouse position (red box) is mouse
+		input lag.  The red circle represents 'two frames' of input lag.
 
-Instructions: Move the mouse around in the box below in a consistent motion. The difference
-between hardware cursor (mouse pointer) and last recorded mouse position (red box) is mouse
-input lag.  The red circle represents 'two frames' of input lag.
-  <blockquote>
-  <font color=red>WARNING: It you see a mouse event rate matching your display Hz, the web browser
-  is likely collapsing several real mouse events into one faked mouse event!  UPDATE: Chrome 60+ does this!</font>
-  <a href="https://developers.google.com/web/updates/2017/06/aligning-input-events">details</a>
-  </blockquote>
-Gray horizontal lines are every 5ms.<br>
-blue line: inter-mouse message times (best case is flat line). 8ms is typical for mice/Windows; notebook trackpad is usually around 10ms to 12ms<br>
-gray line: mouse move message time offset from rAF time / vsync (best case: consistent sawtooth pattern).<br>
-<br>
+		<blockquote>
+			<font color=red>
+				WARNING: It you see a mouse event rate matching your display Hz, the web browser
+				is likely collapsing several real mouse events into one faked mouse event!  UPDATE: Chrome 60+ does this!
+			</font>
+			<a href="https://developers.google.com/web/updates/2017/06/aligning-input-events">details</a>
+		</blockquote>
 
-<input type="checkbox" id="wanthardwarecursor" checked>Show hardware cursor
-<input type="checkbox" id="useraftime" checked>Use rAF time argument
-<input type="checkbox" id="wantgraph" checked>Graph
-<input type="checkbox" id="wanteventnow" checked>Override event time with now()
-<input type="checkbox" id="wantmousepath">Show mouse path
-<br>
+		Gray horizontal lines are every 5ms.<br>
+		blue line: inter-mouse message times (best case is flat line). 8ms is typical for mice/Windows; notebook trackpad is usually around 10ms to 12ms<br>
+		gray line: mouse move message time offset from rAF time / vsync (best case: consistent sawtooth pattern).<br>
+		<br>
 
-<table class=grayborder cellpadding=0 cellspacing=0 border=0><tr><td><canvas id=can width=1200 height=400></canvas></td></tr></table>
-<script>document.writeln(navigator.userAgent+"<br>")</script>
-<br><br>
-<b>An example good result:</b>
-<blockquote>
-<img class=grayborder width=500 src="mouseperfexample.jpg">
-</blockquote>
+		<input type="checkbox" id="wanthardwarecursor" checked>Show hardware cursor
+		<input type="checkbox" id="useraftime" checked>Use rAF time argument
+		<input type="checkbox" id="wantgraph" checked>Graph
+		<input type="checkbox" id="wanteventnow" checked>Override event time with now()
+		<input type="checkbox" id="wantmousepath">Show mouse path
+		<br>
 
-<script type="text/javascript" src="../js/mouse-latency.js"></script>
+		<table class=grayborder cellpadding=0 cellspacing=0 border=0>
+			<tr>
+				<td>
+					<canvas id=can width=1200 height=400></canvas>
+				</td>
+			</tr>
+		</table>
 
-</body>
+		<script>
+			document.writeln(navigator.userAgent+"<br>")
+		</script>
+
+		<br><br>
+
+		<b>An example good result:</b>
+		<blockquote>
+			<img class=grayborder width=500 src="mouseperfexample.jpg">
+		</blockquote>
+
+		<script type="text/javascript" src="../js/mouse-latency.js"></script>
+
+	</body>
 </html>
