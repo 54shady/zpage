@@ -53,6 +53,7 @@ caddy将对主机的8080进行反向代理(Caddyfile内容如下,local web serve
 
 	docker run \
 		--name rproxy \
+		--restart always \
 		--rm -d \
 		--network host \
 		-v $PWD/ca.pem:/certs/ca.pem \
