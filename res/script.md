@@ -21,7 +21,9 @@ using insecure mode
 	curl -k https://serverip
 	wget -qO - --no-check-certificate https://serverip/scriptname
 
-## Download whole site
+## Download whole website
+
+using wget
 
 	wget -c --wait=1 \
 		--user-agent="Firefox/4.0.1" \
@@ -29,3 +31,7 @@ using insecure mode
 		--recursive --no-parent \
 		--continue --no-clobbe \
 		https://sitetobedown.net/
+
+using rsync
+
+		rsync -rtvzP sitetobedown.net /path/to/site
