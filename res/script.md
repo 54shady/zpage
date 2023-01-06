@@ -20,3 +20,12 @@ using insecure mode
 
 	curl -k https://serverip
 	wget -qO - --no-check-certificate https://serverip/scriptname
+
+## Download whole site
+
+	wget -c --wait=1 \
+		--user-agent="Firefox/4.0.1" \
+		--execute robots=off \
+		--recursive --no-parent \
+		--continue --no-clobbe \
+		https://sitetobedown.net/
