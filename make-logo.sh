@@ -12,3 +12,6 @@ magick \
 	-fill black label:a \
 	-fill purple label:y \
 	+smush -5 ./pix/logo.png
+
+# generate the favicon
+convert -background transparent -define 'icon:auto-resize=16,24,32,64' pix/logo.png favicon.ico
