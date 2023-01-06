@@ -1,6 +1,6 @@
 :root {
 	--genwidth: 850px ;
-	--navwidth: 200px ;
+	--navwidth: 400px ;
 	--fg: #ddd ;
 	--altfg: #ccc ;
 	--fgemph: white ;
@@ -12,9 +12,11 @@
 }
 
 body {
-	font-style: sans-serif ;
+	/* font-style: sans-serif ; */
+	/* font-family:Helvetica, Arial, sans-serif; */
+	font-family:Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 	/* background: linear-gradient(indigo, darkslategray) fixed ; */
-	background: #333 ;
+	background: #222 ;
 	margin-bottom: 100px ;
 }
 
@@ -139,10 +141,16 @@ li img, p img {
 }
 
 h1,h2,h3,h4 {
-	font-family: "EB Garamond", Garamond, Serif ;
+	/* font-family: "EB Garamond", Garamond, Serif ; */
+	/* font-family:Helvetica, Arial, sans-serif; */
+	font-family:Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+	font-style:italic;
 	text-align: center ;
 	text-shadow: 1px 1px var(--emph) ;
 	font-weight: normal ;
+	margin-top:20px;
+	margin-bottom:20px;
+	/*line-height: 1.45;*/
 }
 
 h1 { color: lightblue ; }
