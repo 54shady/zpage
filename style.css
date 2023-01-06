@@ -321,3 +321,48 @@ aside {
 	margin: auto ;
 	display: block ;
 }
+
+#servicelist {
+	padding-left: 0 ;
+}
+
+#servicelist li {
+	display: inline-block ;
+	height: 150px ;
+	width: 150px ;
+	position: relative ;
+}
+
+#servicelist img {
+	height: 80% ;
+	width: 80% ;
+	max-height: none ;
+	max-width: none ;
+	position: absolute ;
+	left: 50% ;
+	transform: translateX(-50%);
+}
+
+#servicelist .title, #servicelist li:hover .desc {
+	display: block ;
+	position: absolute ;
+	color: white ;
+	width: 100% ;
+	text-align: center ;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 1em ;
+	font-size: large ;
+}
+
+#servicelist .title {
+	font-size: xx-large ;
+	background-color: rgba(3,3,3,0.6) ;
+}
+#servicelist li:hover .desc {
+	background-color: rgba(3,3,3,0.9) ;
+}
+
+#servicelist li:hover .title, .desc, .tags {
+	display: none ;
+}
