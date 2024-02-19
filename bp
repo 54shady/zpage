@@ -2,7 +2,7 @@
 name="ZeroWay"
 webdir="$PWD"
 website="https://zeroway.xyz/" # Keep a trailing slash.
-css="../style.css"
+css="../style01.css"
 blogfile="$(date +%Y).html"
 indexfile="blogindex.html"
 rssfile="rss.xml"
@@ -37,7 +37,7 @@ newpostFromMD() {
 	title=${filename%.*}
 
 	# covert markdown file to html via pandoc in docker
-	docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/latex --toc-depth=2 --toc -s $fullname --template res/template.html -c style.css -o draft.html
+	docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/latex --toc-depth=2 --toc -s $fullname --template res/template.html -c style01.css -o draft.html
 	echo "$title" | grep -q "\"" && printf "Double quotation marks (\") are not allowed in entry titles.\\n" && exit
 	url="$(echo "$title" | iconv -cf UTF-8 -t ASCII//TRANSLIT | tr -d '[:punct:]' | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed "s/-\+/-/g;s/\(^-\|-\$\)//g")"
 	echo "AddDescription \"$title\" \"$url.html\"" >>  "$archivefile"|| { echo "Error: Is $archivefile writeable?"; exit; }
