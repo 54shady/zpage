@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-magick \
+convert \
 	-size 125x \
 	-pointsize 72 \
 	-background none \
